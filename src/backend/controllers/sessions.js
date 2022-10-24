@@ -70,6 +70,23 @@ sessionController.post('/update', async (req, res) => {
 });
 
 
+//get booked sessions by user id if not in future innerjoin with sessions
+sessionController.post('/booked', async (req, res) => {
+    try {
+        const id = req.body.id;
+        //innerjoin with sessions 
+        const sessions = await connection.query("SELECT *,date_format(date, '%d/%m/%Y') as fdate FROM gymweb.bookings INNER JOIN gymweb.sessions ON gymweb.bookings.session_id = gymweb.sessions.session_id WHERE gymweb.bookings.user_id = ? AND gymweb.sessions.date >= CURDATE() ORDER BY date",[id]);  
+
+        res.json(sessions[0]);
+        // console.log(sessions);
+    }
+    catch (err) {
+        res.json({message: "error"}).status(500);
+        console.log(err);
+    }
+});
+
+
 
 
 

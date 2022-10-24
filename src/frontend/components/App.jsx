@@ -9,6 +9,7 @@ import {CreateSession, TrainerHub} from "./TrainerHub";
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Booked } from "./Booked";
 
 export const App = () => {
 
@@ -24,6 +25,7 @@ export const App = () => {
                 <Route path='/sessions' element={<Sessions/>}/>
                 <Route path='/trainers' element={<TrainerHub/>} />
                 <Route path='/createsession' element={<CreateSession/>} />
+                <Route path='/booked' element={<Booked/>} />
 
 
               

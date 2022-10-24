@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import { useEffect, useState } from 'react'
 import cookieParser from 'cookie-parser'
+import 'remixicon/fonts/remixicon.css'
 
 export const Navbar = () => {
     const [user, setUser] = useState(null)
@@ -52,10 +53,12 @@ export const Navbar = () => {
                         <Link to="/" className='font-mono text-3xl'>High Street Gym</Link>
                         <Link to='/blog' className='border p-1 rounded'>Blog</Link>
                         <Link to='/sessions' className=''>Sessions</Link>
+                        <Link to='/booked' className=''>Booked Sessions</Link>
+
                         <Link to='/trainers' className=''>TrainerHub</Link>
                         
 
-                        <Link onClick={logout}>Logout</Link>
+                        <Link onClick={logout}><i class="ri-logout-circle-r-line"></i></Link>
                        
                     </div>
                 </>
@@ -67,8 +70,10 @@ export const Navbar = () => {
                         <Link to="/" className='font-mono text-3xl'>High Street Gym</Link>
                         <Link to='/blog' className='border p-1 rounded'>Blog</Link>
                         <Link to='/sessions' className=''>Sessions</Link>
+                        <Link to='/booked' className=''>Booked Sessions</Link>
 
-                        <Link onClick={logout}>Logout</Link>
+
+                        <Link onClick={logout}><i class="ri-logout-circle-r-line"></i></Link>
                        
                     </div>
                 </>

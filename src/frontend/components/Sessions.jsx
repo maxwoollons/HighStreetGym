@@ -64,13 +64,14 @@ export const Sessions = () => {
                 <h1 className='text-white text-3xl text-center p-3 underline underline-offset-8'>Sessions We Have this week</h1>
                 <div>
                     <div className='flex justify-center flex-col items-center bg-red-400'>
+                    
                         {sessions.map(session => {
                             return (
                                 <div key={session.session_id} className='flex justify-evenly bg-red-600 p-3 rounded-lg m-3 min-w-[90%] text-center shadow-xl text-white'>
                                     <div>ID: {session.session_id}</div>
                                     <div>Session Time: {session.fdate} {session.time}</div>
                                     <div>Max Space: {session.max_space}</div>
-                                    <div>Trainer: {session.email}</div>
+                                    <div>Trainer: {session.name}</div>
                                     {user ? <div><button value={session.session_id} onClick={bookUser}>Book Now</button></div> : null}
                                 </div>
                             )

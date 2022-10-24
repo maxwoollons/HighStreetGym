@@ -44,7 +44,7 @@ export const Stats = (props) => {
                 <Link to="/createsession"><button className='text-2xl'>Create Session</button></Link>
                 </div>
                 <div className='bg-purple-300 p-3 m-3 rounded-lg shadow-xl flex items-center col-span-2 text-center'>
-                <button className='text-2xl'>Create Blog Post</button>
+                <button onClick={props.openModal2} className='text-2xl'>Create Blog Post</button>
                 </div>
            
         </div>

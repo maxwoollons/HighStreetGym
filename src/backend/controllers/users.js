@@ -23,12 +23,20 @@ userController.get('/', async (req, res) => {
 
 userController.post('/register', async (req, res) => {
     try {
-        let {email, password} = req.body;
+        let {email, password,name} = req.body;
         email = validator.escape(email);
+        //check to see if email has been used before
+        let results = await connection.query("SELECT * FROM gymweb.users WHERE email = ?", [email]);
+        console.log(results[0]);
+        if (results[0].length > 0) {
+            return res.json({message: "email already in use"}).status(500);
+        }
+        else {
         const encryptedPassword = await bcryptjs.hash(password, 6);
-        const user = await connection.query("INSERT INTO gymweb.users (email, password,role) VALUES (?, ?,'user')",[email, encryptedPassword]);
+        const user = await connection.query("INSERT INTO gymweb.users (name,email, password,role) VALUES (?,?, ?,'user')",[name,email, encryptedPassword]);
         res.json({message: "user added"}).status(200);
         console.log(user);
+    }
 
     }
     catch (err) {
