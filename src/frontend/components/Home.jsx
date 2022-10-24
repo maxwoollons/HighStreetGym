@@ -24,7 +24,7 @@ export const Home = () => {
 
     return (
         <>
-            <div className='bg-purple-800 min-h-screen'>
+            <div className='bg-purple-800'>
                 <div className='bg-teal-500 flex justify-center py-1 text-white hover:bg-orange-400 hover:duration-300 cursor-pointer shadow-lg'>Get Started Now!</div>
                 <div className="bg-green-500 min-h-[500px] bg-[url('https://i.ibb.co/RNC9zYL/banner.jpg')] bg-center bg-cover flex justify-center items-center ">
                     <button className='bg-teal-500 p-3 text-2xl text-white rounded-lg hover:bg-teal-900 hover:duration-300 mt-[200px]'>View our fitness blog</button>
