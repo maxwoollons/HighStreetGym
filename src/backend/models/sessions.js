@@ -15,7 +15,7 @@ export function getSessionsByUserId(id){
 
 
 export function createSession(user_id,date, time,name, capacity){
-    return connection.query("INSERT INTO gymweb.sessions (user_id, date, time,name, max_space) VALUES (?,?,?,?,?)",[user_id, date, time,name, capacity]);
+    return connection.query("INSERT INTO gymweb.sessions (user_id, date, time,session_name, max_space) VALUES (?,?,?,?,?)",[user_id, date, time,name, capacity]);
 }
 
 

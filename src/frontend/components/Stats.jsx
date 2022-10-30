@@ -26,22 +26,16 @@ export const Stats = (props) => {
 
 
   return (
-    <div className='grid grid-cols-3 text'>
+    <>
+    <div className='grid-cols-3 text hidden md:grid'>
         <div className='bg-purple-300 p-3 m-3 rounded-lg shadow-xl'>
             <div className='text-2xl'>Total Users</div>
             <div className='text-4xl'>{props.usernum.users}</div>
         </div>
-        <div className='grid grid-cols-2'>
         <div className='bg-purple-300 p-3 m-3 rounded-lg shadow-xl'>
             <div className='text-2xl'>My Classes</div>
             <div className='text-4xl'>{props.sessions ? props.sessions.length : 0}</div>
         </div>
-        <div className='bg-purple-300 p-3 m-3 rounded-lg shadow-xl'>
-            <div className='text-2xl'>Export Session Data</div>
-        </div>
-
-        </div>
-        
         <div className='grid grid-cols-2'>
             <div className='bg-purple-300 p-3 m-3 rounded-lg shadow-xl'>
                 <div className='text-2xl'>Days Trainer</div>
@@ -57,5 +51,21 @@ export const Stats = (props) => {
         </div>
 
     </div>
+
+     <div className='grid grid-cols-2 md:hidden'>
+        
+                <div className='bg-purple-300 p-3 m-3 rounded-lg shadow-xl flex items-center'>
+                <Link to="/createsession"><button className='text-2xl'>Create Session</button></Link>
+                </div>
+                <div className='bg-purple-300 p-3 m-3 rounded-lg shadow-xl flex items-center text-center'>
+                <button onClick={props.openModal2} className='text-2xl'>Create Blog Post</button>
+                </div>
+           
+   
+
+    </div>
+    </>
+
+
     )
 }

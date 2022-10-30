@@ -87,7 +87,52 @@ sessionController.post('/booked', async (req, res) => {
 });
 
 
+sessionController.post('/delete', async (req, res) => {
+    try {
+        const id = req.body.id;
+        const session = await connection.query("DELETE FROM `gymweb`.`sessions` WHERE (`session_id` = ?)",[id]);
+        console.log(session)
+        
+        res.json({message: session}).status(200);
 
+    }
+    catch (err) {
+        res.json({message: "error"}).status(500);
+        console.log(err);
+    }
+});
+
+
+
+//add +1 to booked space
+// sessionController.post('/add1', async (req, res) => {
+//     try {
+//         const id = req.body.id;
+//         const session = await connection.query("UPDATE `gymweb`.`sessions` SET `booked_space` = `booked_space` + 1 WHERE (`session_id` = ?)",[id]);
+//         console.log(session)
+//         res.json({message: "session updated"}).status(200);
+//     }
+//     catch (err) {
+//         res.json({message: "error"}).status(500);
+//         console.log(err);
+//     }
+// });
+
+// //remove -1 to booked space
+// sessionController.post('/remove1', async (req, res) => {
+//     try {
+//         const id = req.body.id;
+//         const session = await connection.query("UPDATE `gymweb`.`sessions` SET `booked_space` = `booked_space` - 1 WHERE (`session_id` = ?)",[id]);
+//         console.log(session)
+//         res.json({message: "session updated"}).status(200);
+//     }
+//     catch (err) {
+//         res.json({message: "error"}).status(500);
+//         console.log(err);
+//     }
+// });
+
+    
 
 
 export default sessionController;

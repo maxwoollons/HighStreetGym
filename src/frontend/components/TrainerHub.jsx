@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { Stats } from './Stats'
 import 'remixicon/fonts/remixicon.css'
+import FileDownload from 'js-file-download'
 
 
 export const TrainerHub = () => {
@@ -22,6 +23,8 @@ export const TrainerHub = () => {
     const [showModal, setShowModal] = useState(false)
     const [showModal2, setShowModal2] = useState(false)
 
+    const [rerender, setRerender] = useState(false)
+
 
     function openModal(e) {
         let id = e.target.value
@@ -40,11 +43,52 @@ export const TrainerHub = () => {
         setShowModal2(true)
     }
 
+
+    //download history
+    function downloadHistory(e) {
+    axios.get('/api/data/history', { responseType: 'blob' })
+        .then(res => {
+            console.log(res.data)
+            FileDownload(res.data, 'history.xml');
+        }
+        )
+        .catch(err => {
+            console.log(err)
+        }
+        )
+    }
+
+    function downloadToday(e) {
+        axios.get('/api/data/today', { responseType: 'blob' })
+            .then(res => {
+                console.log(res.data)
+                FileDownload(res.data, 'today.xml');
+            }
+            )
+            .catch(err => {
+                console.log(err)
+            }
+            )
+        }
+
+
     function closeModal2() {
         setShowModal2(false)
     }
 
+    function delSession(e){
+        const sessionID = e.target.value
+        axios.post('/api/sessions/delete', { id: sessionID })
+        .then(res => {
 
+
+            console.log(res)
+            setRerender(!rerender)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 
 
 
@@ -68,7 +112,6 @@ export const TrainerHub = () => {
     useEffect(() => {
 
         if (user) {
-
             axios.post('/api/sessions/mysessions', { id: user.id })
                 .then(res => {
                     setSessions(res.data)
@@ -86,7 +129,7 @@ export const TrainerHub = () => {
 
 
 
-    }, [user])
+    }, [user,rerender])
 
 
 
@@ -114,37 +157,36 @@ export const TrainerHub = () => {
                         <h1 className='text-center text-white p-2 text-3xl'>Trainer Hub</h1>
                         <Stats openModal2={openModal2} sessions={sessions} usernum={totalUsers} />
                         <h1 className='text-white text-2xl p-2 text-center'>Sessions Coming up this week</h1>
-                        <div className='bg-purple-300 p-2 m-3 rounded-lg flex justify-between'>
-                            <h1 className='text-center text-2xl'>ID</h1>
-                            <h1 className='text-center text-2xl'>Date</h1>
-                            <h1 className='text-center text-2xl'>Time</h1>
-                            <h1 className='text-center text-2xl'>Session Name</h1>
-                            <h1 className='text-center text-2xl'>Capacity</h1>
-                            <h1 className='text-center text-2xl'>Edit</h1>
-
-                            
-
-
-
-                        </div>
+                       
 
                         {sessions.map(session => {
-                            return <div key={session.session_id} className='bg-purple-300 p-2 m-3 rounded-lg flex justify-between'>
-                                <h1 className='text-center text-2xl'>{session.session_id}</h1>
-                                <h1 className='text-center text-2xl'>{session.fdate}</h1>
-                                <h1 className='text-center text-2xl'>{session.time}</h1>
-                                <h1 className='text-center text-2xl'>{session.name}</h1>
-                                <h1 className='text-center text-2xl'>{session.max_space}</h1>
-                                <button value={session.session_id} onClick={openModal}>Edit Details</button>
+                            return <div key={session.session_id} className='bg-purple-300 p-2 m-3 rounded-lg flex flex-wrap justify-between'>
+                                <h1 className='text-center text-xl p-2'>{session.session_id}</h1>
+                                <h1 className='text-center text-xl p-2'>{session.fdate}</h1>
+                                <h1 className='text-center text-xl p-2'>{session.time}</h1>
+                                <h1 className='text-center text-xl p-2'>{session.session_name}</h1>
+                                <h1 className='text-center text-xl p-2'>{session.booked}/{session.max_space} Spaces</h1>
+                                <button value={session.session_id} onClick={delSession} className='pointer text-center text-xl text-red-500'>Delete</button>
+                                <button value={session.session_id} onClick={openModal} className='pointer text-center text-xl text-red-500'>Edit Details</button>
                             </div>
                         })}
 
 
 
+                        <div className='bg-gray-200 p-2 m-2'>
+                            <h1 className='text-center'>Data Export</h1>
+                            <div className='grid grid-cols-2'>
+                            <button onClick={downloadHistory}>Session History</button>
+                            <button onClick={downloadToday}>Sessions Today</button>
+                            </div>
+                        </div>
+                    
                     </div>
+                
 
                     {showModal ? <EditModal sessionID={sessionID} user={user} setShowModal={setShowModal} editData={editData} /> : null}
-                    {showModal2 ? <BlogCreate closeModal2={closeModal2}/> : null } 
+                    {showModal2 ? <BlogCreate user={user} closeModal2={closeModal2}/> : null } 
+
                 </>
             )
         }
@@ -387,6 +429,39 @@ export const EditModal = (props) => {
 
 
 export const BlogCreate = (props) => {
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
+
+    const setTitlef = (e) => {
+        setTitle(e.target.value)
+    }
+    const setContentf = (e) => {
+        setContent(e.target.value)
+    }
+
+
+    function submitBlog() {
+        let user_id = props.user.id
+       
+        axios.post('/api/posts/create', { user_id, title, content })
+            .then(res => {
+                if (res.data) {
+                    alert('Blog Created')
+                    props.closeModal()
+                }
+            }
+            )
+            .catch(err => {
+                console.log(err)
+            }
+            )
+
+
+    }
+
+
+
+
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -399,14 +474,14 @@ export const BlogCreate = (props) => {
                         </h3>
                         <div className="mt-2">
                             <form className='flex flex-col justify-center items-center min-w-[100%] p-2'>
-                                <input type="text" placeholder='Title' className='min-w-[100%] pt-1 border-2 rounded-xl border-purple-800 p-1' />
-                                <textarea className='border-2 min-w-[100%] mt-3 pt-2 rounded-xl border-purple-800 p-1' placeholder='Text Here'></textarea>
+                                <input onInput={setTitlef} type="text" placeholder='Title' className='min-w-[100%] pt-1 border-2 rounded-xl border-purple-800 p-1' />
+                                <textarea onInput={setContentf} className='border-2 min-w-[100%] mt-3 pt-2 rounded-xl border-purple-800 p-1' placeholder='Text Here'></textarea>
                                 
                             </form>
                         </div>
                         </div>
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button  type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-800 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm">
+                <button onClick={submitBlog} type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-800 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm">
                 <i class="ri-send-plane-2-fill"></i>
                 </button>
                 <button onClick={props.closeModal2}  type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">

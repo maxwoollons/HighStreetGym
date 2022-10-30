@@ -53,7 +53,7 @@ export const Register = () => {
                     <div className='bg-white  p-3 rounded-lg grid grid-rows-3 '>
                         <input className='m-1 p-1' placeholder='name' type="text" value={name} onChange={handleNameChange} />
                         <input className='m-1 p-1' placeholder='email' type="text" value={email} onChange={handleEmailChange} />
-                        <input className='m-1 p-1' placeholder='password' type="text" value={password} onChange={handlePasswordChange} />
+                        <input className='m-1 p-1' placeholder='password' type="password" value={password} onChange={handlePasswordChange} />
                         <button className='bg-green-600 p-3' onClick={handleSubmit}>Register</button>
 
                     </div>

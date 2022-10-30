@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import sessionController from './controllers/sessions.js';
 import bookingController from './controllers/bookings.js';
 import statsController from './controllers/stats.js';
+import dataController from './controllers/dataexport.js';
 
 
 const app = express();
@@ -30,6 +31,7 @@ app.use('/posts',postController);
 app.use('/sessions',sessionController)
 app.use('/bookings',bookingController)
 app.use('/stats',statsController)
+app.use('/data',dataController)
 
 
 

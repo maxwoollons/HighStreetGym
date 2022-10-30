@@ -49,16 +49,18 @@ export const Navbar = () => {
         if(user.role === 'admin' || user.role === 'trainer'){
             return (
                 <>
-                    <div className='bg-purple-900 min-w-screen py-5 px-4 flex justify-around items-center text-white'>
-                        <Link to="/" className='font-mono text-3xl'>High Street Gym</Link>
-                        <Link to='/blog' className='border p-1 rounded'>Blog</Link>
-                        <Link to='/sessions' className=''>Sessions</Link>
-                        <Link to='/booked' className=''>Booked Sessions</Link>
+                    <div className='bg-purple-900 min-w-screen py-5 px-4 flex flex-wrap justify-around items-center text-white text-center'>
+                        <Link to="/" className='font-mono text-3xl hidden m-2 p-2 lg:block'>High Street Gym</Link>
+                        <Link to="/" className='m-2 p-2'>Home</Link>
+                        
+                        <Link to='/blog' className='border p-2 rounded m-2'>Blog</Link>
+                        <Link to='/sessions' className='m-2 p-2'>Sessions</Link>
+                        <Link to='/booked' className='m-2 p-2'>Booked Sessions</Link>
 
-                        <Link to='/trainers' className=''>TrainerHub</Link>
+                        <Link to='/trainers' className='m-2 p-2'>TrainerHub</Link>
                         
 
-                        <Link onClick={logout}><i class="ri-logout-circle-r-line"></i></Link>
+                        <Link onClick={logout}><i className="ri-logout-circle-r-line m-2 p-2"></i></Link>
                        
                     </div>
                 </>
@@ -66,8 +68,10 @@ export const Navbar = () => {
             }else{
             return (
                 <>
-                    <div className='bg-purple-900 min-w-screen py-5 px-4 flex justify-around items-center text-white'>
-                        <Link to="/" className='font-mono text-3xl'>High Street Gym</Link>
+                    <div className='bg-purple-900 min-w-screen py-5 px-4 flex flex-wrap justify-around items-center text-white'>
+                        <Link to="/" className='font-mono text-3xl hidden lg:block m-2 p-2'>High Street Gym</Link>
+                        <Link to="/" className='m-2 p-2'>Home</Link>
+
                         <Link to='/blog' className='border p-1 rounded'>Blog</Link>
                         <Link to='/sessions' className=''>Sessions</Link>
                         <Link to='/booked' className=''>Booked Sessions</Link>
@@ -82,13 +86,15 @@ export const Navbar = () => {
         } else {
             return (
                 <>
-                    <div className='bg-purple-900 min-w-screen py-5 px-4 flex justify-around items-center text-white'>
-                        <Link to="/" className='font-mono text-3xl'>High Street Gym logged out</Link>
-                        <Link to='/blog' className='border p-1 rounded'>Blog</Link>
-                        <Link to='/sessions' className=''>Sessions</Link>
+                    <div className='bg-purple-900 min-w-screen py-5 px-4 flex justify-around flex-wrap items-center text-white'>
+                        <Link to="/" className='font-mono text-3xl hidden lg:block m-2 p-2'>High Street Gym logged out</Link>
+                        <Link to="/" className='m-2 p-2'>Home</Link>
+                        
+                        <Link to='/blog' className='border p-2 rounded m-2'>Blog</Link>
+                        <Link to='/sessions' className='m-2 p-2'>Sessions</Link>
         
-                        <Link to='/login'>Login</Link>
-                        <Link to='/register'>Register</Link>
+                        <Link to='/login' className='m-2 p-2'>Login</Link>
+                        <Link to='/register' className='m-2 p-2'>Register</Link>
                     </div>
                 </>
         

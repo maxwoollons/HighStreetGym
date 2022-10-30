@@ -1,0 +1,32 @@
+
+
+
+<!DOCTYPE document [
+<!ELEMENT document (title, session_id, session_date, session_time, session_name, session_space)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT session_id (#PCDATA)>
+<!ELEMENT session_date (#PCDATA)>
+<!ELEMENT session_time (#PCDATA)>
+<!ELEMENT session_name (#PCDATA)>
+<!ELEMENT session_space (#PCDATA)>
+<!ELEMENT session_booked (#PCDATA)>
+]>
+
+
+
+
+
+
+
+<document>
+    <title>Classes For Today</title>
+   
+    <% for (var i = 0; i < sessions.length; i++) { %>
+    <session_id><%- sessions[i].session_id %></session_id>
+    <session_date><%- sessions[i].date %></session_date>
+    <session_time><%- sessions[i].time %></session_time>
+    <session_name><%- sessions[i].session_name %></session_name>
+    <session_space><%- sessions[i].booked %>/<%- sessions[i].max_space %></session_space>
+<% } %>
+
+</document>
