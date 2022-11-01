@@ -53,7 +53,7 @@ userController.post('/login', async (req, res) => {
     const password = req.body.password;
     const user = await connection.query("SELECT * FROM gymweb.users WHERE email = ?",[email]);
     if (user[0].length == 0) {
-        res.json({message: "user not found"}).status(404);
+        res.json({message: "Incorrect username or password"}).status(404);
     }
     else {
         const validPassword = await bcryptjs.compare(password, user[0][0].password);
@@ -64,7 +64,7 @@ userController.post('/login', async (req, res) => {
             res.json({message: "logged in", token: token}).status(200);
         }
         else {
-            res.json({message: "wrong password"}).status(401);
+            res.json({message: "Incorrect username or password"}).status(401);
         }
     }
 });

@@ -104,27 +104,14 @@ sessionController.post('/delete', async (req, res) => {
 
 
 
-//add +1 to booked space
-// sessionController.post('/add1', async (req, res) => {
-//     try {
-//         const id = req.body.id;
-//         const session = await connection.query("UPDATE `gymweb`.`sessions` SET `booked_space` = `booked_space` + 1 WHERE (`session_id` = ?)",[id]);
-//         console.log(session)
-//         res.json({message: "session updated"}).status(200);
-//     }
-//     catch (err) {
-//         res.json({message: "error"}).status(500);
-//         console.log(err);
-//     }
-// });
 
-// //remove -1 to booked space
-// sessionController.post('/remove1', async (req, res) => {
+// sessionController.post('/notbooked', async (req, res) => {
 //     try {
-//         const id = req.body.id;
-//         const session = await connection.query("UPDATE `gymweb`.`sessions` SET `booked_space` = `booked_space` - 1 WHERE (`session_id` = ?)",[id]);
-//         console.log(session)
-//         res.json({message: "session updated"}).status(200);
+//         const {id, session_id} = req.body;
+//         //innerjoin with sessions
+//         const sessions = await connection.query("SELECT *,date_format(date, '%d/%m/%Y') as fdate FROM gymweb.sessions WHERE session_id NOT IN (SELECT session_id FROM gymweb.bookings WHERE user_id = ?) AND date >= CURDATE() AND session_id != ? ORDER BY date",[id, session_id]);
+//         res.json(sessions[0]);
+//         // console.log(sessions);
 //     }
 //     catch (err) {
 //         res.json({message: "error"}).status(500);

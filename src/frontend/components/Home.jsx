@@ -37,7 +37,9 @@ export const Home = () => {
                         return (
                             <Link to='/blog'>
                             <div key={post.post_id} className='bg-[#be185d] p-3 rounded-lg m-3 text-center'>
+                                <h1 className='text-white text-xl'>{post.title}</h1>
                                 <div className='text-white text-lg p-3'>{post.content}</div>
+                                <div className='text-white'><i class="ri-thumb-up-line p-2"></i>{post.likes}</div>
                             </div>
                             </Link>
                         )
@@ -63,7 +65,7 @@ function Offers (){
 
     return (
         <div className='bg-purple-800 min-h-screen'>
-            <h1 className='text-white p-10 text-center text-xl'>What we can offer</h1>
+            {/* <h1 className='text-white p-10 text-center text-xl'>What we can offer</h1> */}
 
             <div className='min-w-[200px] flex justify-center '>
                 

@@ -15,11 +15,13 @@ export const Login = () => {
         })
         .then(res => {
             console.log(res)
-            if(res.data.message === 'user not found'){
+            if(res.data.message === "logged in"){
             alert(res.data.message)
-            }else{
-            alert('Successfully logged in')
             window.location.href = '/'
+            }else{
+            alert(res.data.message)
+
+            // window.location.href = '/'
             }
         }
         )

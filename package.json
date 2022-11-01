@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend": "nodemon src/backend/server.js",
-    "frontend": "parcel src/frontend/index.html --host 0.0.0.0"
+    "frontend": "parcel src/frontend/index.html"
   },
   "keywords": [],
   "author": "",

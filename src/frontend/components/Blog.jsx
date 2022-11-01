@@ -22,6 +22,30 @@ export const Blog = () => {
     }, [])
 
 
+    function addLike(e) {
+        let post_id = e.target.id
+        //edit likes json object of posts variable to add one
+        let newPosts = posts.map(post => {
+            if (post.post_id == post_id) {
+                post.likes = parseInt(post.likes) + 1
+            }
+            return post
+        })
+        setPosts(newPosts)
+
+
+
+
+
+        axios.post('/api/posts/like', { post_id })
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
 
 
 
@@ -38,6 +62,10 @@ export const Blog = () => {
                             <div className='text-white text-lg'>{post.title}</div>
                             <div className='text-white'>{post.content}</div>
                             <div className='text-white'>{post.user_id} - {post.name}</div>
+                            <div className='text-white select-none'>
+                                {user.id ? <i id={post.post_id} onClick={addLike} class="ri-thumb-up-line p-2 cursor-pointer"></i> : <i class="ri-thumb-up-line p-2"></i>}
+                                
+                            {post.likes}</div>
 
 
                         </div>

@@ -87,7 +87,7 @@ export const Navbar = () => {
             return (
                 <>
                     <div className='bg-purple-900 min-w-screen py-5 px-4 flex justify-around flex-wrap items-center text-white'>
-                        <Link to="/" className='font-mono text-3xl hidden lg:block m-2 p-2'>High Street Gym logged out</Link>
+                        <Link to="/" className='font-mono text-3xl hidden lg:block m-2 p-2'>High Street Gym</Link>
                         <Link to="/" className='m-2 p-2'>Home</Link>
                         
                         <Link to='/blog' className='border p-2 rounded m-2'>Blog</Link>

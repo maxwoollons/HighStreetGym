@@ -442,12 +442,18 @@ export const BlogCreate = (props) => {
 
     function submitBlog() {
         let user_id = props.user.id
+        props.closeModal2()
+        if (title === '' || content === '') {
+            alert('Please fill in all fields')
+            return
+        } else {
+
        
         axios.post('/api/posts/create', { user_id, title, content })
             .then(res => {
                 if (res.data) {
                     alert('Blog Created')
-                    props.closeModal()
+                    props.closeModal2()
                 }
             }
             )
@@ -458,6 +464,7 @@ export const BlogCreate = (props) => {
 
 
     }
+}
 
 
 

@@ -57,6 +57,48 @@ postController.delete('/delete', async (req, res) => {
 
 
 
+postController.post('/like', async (req, res) => {
+    try {
+        //add 1 to likes in posts table by post_id
+        const id = req.body.post_id;
+        const posts = await connection.query('UPDATE gymweb.posts SET likes = likes + 1 WHERE post_id = ?', [id]);
+        res.json({message: "post liked"}).status(200);
+    }
+    catch (err) {
+        res.json({message: "error"}).status(500);
+        console.log(err);
+    }
+});
+
+//get post data by id
+postController.post('/post', async (req, res) => {
+    try {
+        const id = req.body.post_id;
+        const posts = await connection.query('SELECT * FROM gymweb.posts WHERE post_id = ?', [id]);
+        res.json(posts[0]);
+    }
+    catch (err) {
+        res.json({message: "error"}).status(500);
+        console.log(err);
+    }
+});
+
+
+//update post by id title body
+postController.put('/update', async (req, res) => {
+    try {
+        const {title, content, postId} = req.body;
+        const posts = await connection.query('UPDATE gymweb.posts SET title = ?, content = ? WHERE post_id = ?', [title, content, postId]);
+        res.json({message: "post updated"}).status(200);
+    }
+    catch (err) {
+        res.json({message: "error"}).status(500);
+        console.log(err);
+    }
+});
+
+
+
 
 
 
