@@ -1,59 +1,71 @@
 import React from 'react'
-import {useState} from 'react'
-import axios from 'axios'
+import "./../style.css"
 
-
-export const Login = () => {
-    const [password, setPassword] = useState('')
-    const [email, setEmail] = useState('')
-
-
-    const handleSubmit = (e) => {
-        axios.post('/api/users/login', {
+const Login = () => {
+    function submitbtn (){
+        let errorbox = document.getElementById('errorbox')
+        let email = document.getElementById('email').value
+        let password = document.getElementById('password').value
+        let data = {
             email: email,
             password: password
-        })
-        .then(res => {
-            console.log(res)
-            if(res.data.message === "logged in"){
-            alert(res.data.message)
-            window.location.href = '/'
-            }else{
-            alert(res.data.message)
-
-            // window.location.href = '/'
-            }
         }
-        )
-        .catch(err => {
-            console.log(err)
-        }
-        )
-    }
+        fetch('/api/members/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "credentials": "include",
+                "sameSite": "true",
+                "cors": "none"
+                },
+                body: JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.error){
+                        errorbox.innerHTML = data.error
+                        errorbox.style.display = 'block'
+                    }
+                    else {
+                        location.href = '/'
+                        errorbox.innerHTML = 'Login successful'
+                        errorbox.style.display = 'block'
+                        document.getElementById('email').value = ''
+                        document.getElementById('password').value = ''
+                    }
+                })
 
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value)
+    
     }
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value)
-    }
+        
 
 
 
   return (
-    <div className='min-h-screen bg-purple-800'>
     <div>
-        <div className='flex flex-wrap justify-center items-center pt-5'>
-            <div className='grid grid-rows-3 bg-white  p-3 rounded-lg '>
-                <input className='m-1 p-1' placeholder='email' type="text" value={email} onChange={handleEmailChange} />
-                <input className='m-1 p-1' placeholder='password' type="password" value={password} onChange={handlePasswordChange} />
-                <button className='bg-green-600 p-3' onClick={handleSubmit}>Login</button>
+        <div className="container">
+            <div className="registerbox">
+                <h1>Login</h1>
+                <form>
+                    <label>Email</label>
+                    <input id='email' type="text" placeholder='email' />
+                    <label>Password</label>
+                    <input id="password" type="password" placeholder='password' />
+                    </form>
+                <button onClick={submitbtn}>Login</button>
+                <small>Need an account? <a href="/register">Register Here</a></small>
+                <div id='errorbox'>
+                    <p>Error</p>
+                    </div>
 
-                </div>
-                </div>
 
+
+            </div>
+
+        </div>
     </div>
-</div>
   )
 }
+
+export default Login
