@@ -31,9 +31,9 @@ CREATE TABLE `bookings` (
   PRIMARY KEY (`booking_id`),
   KEY `fk_bookings_users_idx` (`user_id`),
   KEY `fk_bookings_sessions_idx` (`session_id`),
-  CONSTRAINT `fk_bookings_sessions` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`session_id`),
-  CONSTRAINT `fk_bookings_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `fk_bookings_sessions` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`session_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `fk_bookings_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `bookings` (
 
 LOCK TABLES `bookings` WRITE;
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
-INSERT INTO `bookings` VALUES (47,3,1),(49,3,7),(50,3,8),(51,3,6),(56,3,17),(57,13,2),(58,13,4),(59,13,18),(60,3,4),(62,3,18);
+INSERT INTO `bookings` VALUES (49,3,7),(56,3,17),(57,13,2),(59,13,18),(62,3,18),(63,11,21);
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,7 +62,7 @@ CREATE TABLE `posts` (
   PRIMARY KEY (`post_id`),
   KEY `fk_posts_users_idx` (`user_id`),
   CONSTRAINT `fk_posts_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +71,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,1,'Hello this is the first blog post','1st post',15),(2,1,'this is blogpost 2','2nd post',9),(3,1,'Blogpost 3','3rd post',6),(4,1,'Blogpost 4 i think','4th post',20),(5,2,'I need some sort of helpI need some sort of helpI need some sort of help','Help required',4),(6,NULL,'sadasdasdasd','asdasd',0),(7,NULL,'sadasdasdasd','asdasd',0),(12,3,'Drink lots of water, Water keeps the electrolights up which is apparently good for the body?\nIm not an expert therefore i have no idea lmao <br/>','Gym Training Tipsy',46),(13,3,'Everyone knows that your favorite tunes can fire you up for a workout, but in one Indian Journal of Physiology and Pharmacology of 30 men and women, people who listened to music (especially slow music) after their workout recovered faster than did those who went sans tunes. “Music boosts the body’s levels of serotonin and dopamine, hormones that are known to foster recovery,” says Perkins . Try listening to a few of your favorite, most relaxing tracks as soon as you finish your workout. It will help your blood pressure and heart rate get back to normal and recovery happen ASAP.','Listen to Music',14),(22,3,'Quality shut-eye is vital to getting the most out of your time spent in the gym. And that goes for every night of the week. According to one 2015 Sports Medicine review, poor sleep hinders not only your exercise performance (and the number of calories you burn), but also your body’s ability to come back stronger after every workout. “Sleep drives the hormonal shifts that promote the body’s recovery to exercise,” says Carlson-Phillips. Without appropriate sleep, symptoms of over-training, including fitness plateaus, set in. Aim for seven to nine hours of sleep every single night.','Get a better night’s sleep i think',89),(23,13,'Healthy diet, exercise , sleep and hydration all help to create the best version of you! But don\'t forget to mix in a bit of FUN each day!!!','Be the best version of you!!!',62);
+INSERT INTO `posts` VALUES (1,1,'Hello this is the first blog post','1st post',15),(2,1,'this is blogpost 2','2nd post',9),(3,1,'Blogpost 3','3rd post',6),(4,1,'Blogpost 4 i think','4th post',20),(5,2,'I need some sort of helpI need some sort of helpI need some sort of help','Help required',4),(6,NULL,'sadasdasdasd','asdasd',0),(7,NULL,'sadasdasdasd','asdasd',0),(12,3,'Drink lots of water, Water keeps the electrolights up which is apparently good for the body?\nIm not an expert therefore i have no idea lmao <br/>','Gym Training Tipsy',46),(13,3,'Everyone knows that your favorite tunes can fire you up for a workout, but in one Indian Journal of Physiology and Pharmacology of 30 men and women, people who listened to music (especially slow music) after their workout recovered faster than did those who went sans tunes. “Music boosts the body’s levels of serotonin and dopamine, hormones that are known to foster recovery,” says Perkins . Try listening to a few of your favorite, most relaxing tracks as soon as you finish your workout. It will help your blood pressure and heart rate get back to normal and recovery happen ASAP.','Listen to Music',14),(22,3,'Quality shut-eye is vital to getting the most out of your time spent in the gym. And that goes for every night of the week. According to one 2015 Sports Medicine review, poor sleep hinders not only your exercise performance (and the number of calories you burn), but also your body’s ability to come back stronger after every workout. “Sleep drives the hormonal shifts that promote the body’s recovery to exercise,” says Carlson-Phillips. Without appropriate sleep, symptoms of over-training, including fitness plateaus, set in. Aim for seven to nine hours of sleep every single night.','Get a better night’s sleep i think',90),(23,13,'Healthy diet, exercise , sleep and hydration all help to create the best version of you! But don\'t forget to mix in a bit of FUN each day!!!','Be the best version of you!!!',80);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +93,7 @@ CREATE TABLE `sessions` (
   PRIMARY KEY (`session_id`),
   KEY `fk_sessions_user_idx` (`user_id`),
   CONSTRAINT `fk_sessions_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +102,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (1,3,'2022-11-10','10:30','Cross Fit','32',1),(2,9,'2022-11-10','14:00','Running Class','20',1),(4,3,'2022-11-10','13:30','Swimming Class','50',2),(5,NULL,'2022-11-10','00:00','asasasasasasasas','10',0),(6,3,'2022-11-10','00:00','asasasasasasasas','10',1),(7,9,'2022-11-10','02:59','SessionName','20',1),(8,3,'2022-11-10','00:58','Stong Mucles ','30',1),(15,3,'2022-11-10','12:30','Delete Me','24',0),(17,3,'2022-11-10','01:40','Running','58',1),(18,13,'2022-11-10','08:00','Reforma Pilates','30',2),(20,3,'2022-11-10','15:20','Aqua Arrobics','4',0);
+INSERT INTO `sessions` VALUES (2,9,'2022-11-10','14:00','Running Class','20',1),(5,NULL,'2022-11-10','00:00','asasasasasasasas','10',0),(6,3,'2022-11-10','00:00','asasasasasasasas','10',0),(7,9,'2022-11-10','02:59','SessionName','20',1),(15,3,'2022-11-09','12:30','Delete Me','24',0),(17,3,'2022-11-10','01:40','Running','58',1),(18,13,'2022-11-10','08:00','Reforma Pilates','30',2),(21,3,'2022-11-11','05:00','New Session','100',1);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,4 +143,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-09 10:01:11
+-- Dump completed on 2022-11-09 11:40:12
