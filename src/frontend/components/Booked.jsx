@@ -74,7 +74,7 @@ export const Booked = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
         {booked.length ? booked.map((session) => {  
             return(
-                <div key={session.booking_id} className='bg-[#be185d] p-3 m-3 rounded-lg hover:bg-[#9f1239] duration-500 hover:shadow-lg'>
+                <div key={session.booking_id} className='text-white bg-[#be185d] p-3 m-3 rounded-lg hover:bg-[#9f1239] duration-500 hover:shadow-lg'>
                     <h1 className='text-xl max-w-[100%] text-center'>{session.session_name}</h1>
                     <h1 className='text-xl max-w-[100%] text-center'>{session.fdate}</h1>
                     <h1 className='text-xl max-w-[100%] text-center'>{session.time}</h1>

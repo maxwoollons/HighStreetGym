@@ -43,7 +43,10 @@ dataController.get('/history',authenticateToken, async (req, res) => {
     try {
         let id = req.user.id
         // console.log(id);
-        const sessions = await connection.query("SELECT * FROM gymweb.sessions where user_id = ?",[id]);
+        // const sessions = await connection.query("SELECT * FROM gymweb.sessions where user_id = ?",[id]);
+        //get session and user data where user_id = id
+        const sessions = await connection.query("SELECT * FROM gymweb.sessions INNER JOIN gymweb.users ON gymweb.sessions.user_id = gymweb.users.user_id where gymweb.sessions.user_id = ?",[id]);
+
         console.log(sessions[0]);
         res.setHeader('content-type', 'text/xml');
         res.render('history.ejs',{sessions:sessions[0]});

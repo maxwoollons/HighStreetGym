@@ -59,7 +59,7 @@ sessionController.post('/update', async (req, res) => {
     try {
         const {session_id, user_id, date, time, name, capacity} = req.body
         console.log(req.body);
-        const session = await connection.query("UPDATE `gymweb`.`sessions` SET `name` = ?, `date` = ?, `time` = ?, `max_space` = ?,`user_id` = ? WHERE (`session_id` = ?)",[name, date, time, capacity, user_id ,session_id]);
+        const session = await connection.query("UPDATE `gymweb`.`sessions` SET `session_name` = ?, `date` = ?, `time` = ?, `max_space` = ?,`user_id` = ? WHERE (`session_id` = ?)",[name, date, time, capacity, user_id ,session_id]);
         res.json({message: "session updated"}).status(200);
         console.log(session)
     }

@@ -1,23 +1,22 @@
 import express from 'express';
-import classController from './controllers/classes.js';
-import session from 'express-session'
-import memberController from './controllers/members.js';
-import bookingsController from './controllers/bookings.js';
-import updateController from './controllers/statusupdate.js';
+import userController from './controllers/users.js';
+import postController from './controllers/posts.js';
+import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
+import sessionController from './controllers/sessions.js';
+import bookingController from './controllers/bookings.js';
+import statsController from './controllers/stats.js';
+import dataController from './controllers/dataexport.js';
+
 
 const app = express();
 const port = 8080;
 
 
-//session setup cookie save
-app.use(session({
-    secret: 'secret',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7
-    }
-}));
+
+
+
+app.use(cookieParser())
 
 
 app.set("view engine", "ejs");
@@ -26,19 +25,26 @@ app.set("views", "./src/backend/xml");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//init express sessions
+
+app.use('/users',userController);
+app.use('/posts',postController);
+app.use('/sessions',sessionController)
+app.use('/bookings',bookingController)
+app.use('/stats',statsController)
+app.use('/data',dataController)
 
 
 
 
 
-app.use('/classes', classController);
-app.use('/members', memberController);
-app.use('/bookings', bookingsController);
-app.use('/updatepos', updateController);
+
+
 
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 }
 );
+
+
+

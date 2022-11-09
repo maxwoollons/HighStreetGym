@@ -78,6 +78,7 @@ export const TrainerHub = () => {
 
     function delSession(e){
         const sessionID = e.target.value
+        if(window.confirm("Are you sure you want to delete this session? \n(This cannot be undone!)")){
         axios.post('/api/sessions/delete', { id: sessionID })
         .then(res => {
 
@@ -89,6 +90,9 @@ export const TrainerHub = () => {
             console.log(err)
         })
     }
+    
+    }
+        
 
 
 
@@ -184,7 +188,7 @@ export const TrainerHub = () => {
                     </div>
                 
 
-                    {showModal ? <EditModal sessionID={sessionID} user={user} setShowModal={setShowModal} editData={editData} /> : null}
+                    {showModal ? <EditModal rerender={rerender} setRerender={setRerender} sessionID={sessionID} user={user} setShowModal={setShowModal} editData={editData} /> : null}
                     {showModal2 ? <BlogCreate user={user} closeModal2={closeModal2}/> : null } 
 
                 </>
@@ -324,7 +328,7 @@ export const EditModal = (props) => {
         props.setShowModal(false)
     }
 
-    const [name, setName] = useState(props.editData[0].name)
+    const [name, setName] = useState(props.editData[0].session_name)
     const [date, setDate] = useState(props.editData[0].fdate)
     const [time, setTime] = useState(props.editData[0].time)
     const [maxSpace, setMaxSpace] = useState(props.editData[0].max_space)
@@ -360,6 +364,8 @@ export const EditModal = (props) => {
                 if (res.data) {
                     alert('Session Updated')
                     closeModal()
+                    props.setRerender(!props.rerender)
+
                 }
             }
             )
@@ -394,7 +400,7 @@ export const EditModal = (props) => {
                                 <div className="mt-2">
                                     <form className='flex flex-col justify-center items-center'>
                                         <label className='text-white text-2xl'>Session Name</label>
-                                        <input type='text' onChange={setNamef} defaultValue={props.editData[0].name} className='border-2 border-purple-800 rounded-lg p-2 m-2' />
+                                        <input type='text' onChange={setNamef} defaultValue={props.editData[0].session_name} className='border-2 border-purple-800 rounded-lg p-2 m-2' />
                                         <label className='text-white text-2xl'>Date</label>
                                         <input type='text' onChange={setDatef} defaultValue={props.editData[0].fdate} className='border-2 border-purple-800 rounded-lg p-2 m-2' />
                                         <label className='text-white text-2xl'>Time</label>

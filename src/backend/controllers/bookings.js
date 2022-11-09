@@ -1,97 +1,63 @@
-import express from 'express'
-import { getBookings,makeBooking,checkBooking,deleteBooking,addCurrentMembers,minusCurrentMembers } from '../models/bookings.js';
+import express from 'express';
+import connection from '../db_conn.js';
+
+const bookingController = express.Router();
 
 
-const bookingsController = express.Router()
-
-
-//get bookings by memberid
-bookingsController.get('/:memberid', (req, res) => {
-    getBookings(req.params.memberid).then(bookings => {
-        res.status(200).json(bookings[0]);
-    }
-    ).catch(err => {
-        res.json(err);
-    }   
-    );
-}
-);
-
-
-//make booking by memberid for session id and check to make sure the member isn't already booked for that session
-bookingsController.post('/:memberid/:sessionid', (req, res) => {
-    getBookings(req.params.memberid).then(bookings => {
-        if (bookings[0].sessionid === req.params.sessionid) {
-            res.status(400).json({
-                message: "You are already booked for this session"
-            });
-        } else {
-            makeBooking(req.params.memberid, req.params.sessionid).then(booking => {
-                res.status(200).json(booking);
-            }
-            ).catch(err => {
-                res.json(err);
-            }
-            );
+bookingController.post('/book', async (req, res) => {
+    try {
+        const {memberid, sessionid} = req.body
+        //check to see if booking already exsists
+        const booking = await connection.query("SELECT * FROM gymweb.bookings WHERE user_id = ? AND session_id = ?",[memberid,sessionid]);
+        if(booking[0].length > 0){
+            res.json({message: "booking already exsists"}).status(400);
         }
-    }
-    ).catch(err => {
-        res.json(err);
-    }
-    );
-}
-);
+        else{
 
-
-//check to see if the member is already booked for the session
-bookingsController.get('/:memberid/:sessionid', (req, res) => {
-    checkBooking(req.params.memberid, req.params.sessionid).then(booking => {
-        console.log(booking[0]);
-        if (booking[0].length > 0) {
-            res.status(200).json({
-                booked: "true"
-            });
-        } else {
-            res.status(200).json({
-                booked: "false"
-            });
+        ;
+        const booking = await connection.query("INSERT INTO `gymweb`.`bookings` (`user_id`, `session_id`) VALUES ('?', ?)",[memberid, sessionid]);
+        //add 1 to session booking number
+        const session = await connection.query("UPDATE `gymweb`.`sessions` SET `booked` = `booked` + 1 WHERE (`session_id` = ?)",[sessionid]);
+        res.json({message: "booking created"}).status(200);
+        console.log(booking);
         }
+
     }
-    ).catch(err => {
-        res.json(err);
+    catch (err) {
+        res.json({message: "error"}).status(500);
+        console.log(err);
     }
-    );
-}
-);
 
-bookingsController.delete('/:bookingid', (req, res) => {
-    deleteBooking(req.params.bookingid).then(booking => {
-        res.status(200).json(booking);
+});
+
+
+//delete booking
+bookingController.delete('/book', async (req, res) => {
+    try {
+        const {booking_id} = req.body
+        console.log(booking_id);
+
+        const session = await connection.query("SELECT session_id FROM gymweb.bookings WHERE booking_id = ?",[booking_id]);
+
+        const session2 = await connection.query("UPDATE `gymweb`.`sessions` SET `booked` = `booked` - 1 WHERE (`session_id` = ?)",[session[0][0].session_id]);
+
+
+        const booking = await connection.query("DELETE FROM gymweb.bookings WHERE booking_id = ?",[booking_id]);
+
+
+        
+        
+        console.log(booking);
+        
+        res.json({message: "booking deleted"}).status(200);
     }
-    ).catch(err => {
-        res.json(err);
+    catch (err) {
+        res.json({message: "error"}).status(500);
+        console.log(err);
     }
-    );
-}
-);
-
-
-//add +1 to current members post
-bookingsController.post('/:sessionid', (req, res) => {
-    addCurrentMembers(req.params.sessionid).then(booking => {
-        res.status(200).json(booking);
-    }
-    ).catch(err => {
-        res.json(err);
-    }
-    );
-}
-);
+});
 
 
 
-
-
-
-export default bookingsController;
+export default bookingController;
 

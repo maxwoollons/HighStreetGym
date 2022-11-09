@@ -8,6 +8,10 @@ export function getAllSessionsWeek(){
 }
 
 
+export function getAllSessionsNotBooked(id){
+    return connection.query("SELECT *,NULL AS password, date_format(date, '%d/%m/%y') as fdate FROM gymweb.sessions INNER JOIN gymweb.users ON sessions.user_id = users.user_id WHERE session_id NOT IN (SELECT session_id FROM gymweb.bookings WHERE user_id = ?) AND date >= CURDATE() ORDER BY date asc",[id]);
+}
+
 
 export function getSessionsByUserId(id){
     return connection.query("SELECT *, date_format(date, '%d/%m/%y') as fdate FROM gymweb.sessions WHERE user_id = ? AND date >= CURDATE() ORDER BY date asc",[id]);
