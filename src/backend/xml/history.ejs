@@ -1,15 +1,19 @@
-
+<!-- XML DEFINITION -->
 <!DOCTYPE document [
-<!ELEMENT document (title,name, session_id, session_date, session_time, session_name, session_space)>
+<!ELEMENT document (title,session*)>
 <!ELEMENT title (#PCDATA)>
-<!ELEMENT name (#PCDATA)>
+<!ELEMENT session (id,trainer,date,time,name,maxspace,space)*>
 <!ELEMENT id (#PCDATA)>
+<!ELEMENT trainer (#PCDATA)>
 <!ELEMENT date (#PCDATA)>
 <!ELEMENT time (#PCDATA)>
 <!ELEMENT name (#PCDATA)>
+<!ELEMENT maxspace (#PCDATA)>
 <!ELEMENT space (#PCDATA)>
-<!ELEMENT booked (#PCDATA)>
 ]>
+
+
+
 
 
 
@@ -24,7 +28,7 @@
 <% for (var i = 0; i < sessions.length; i++) { %>
     <session>
         <id><%- sessions[i].session_id %></id>
-        <name><%- sessions[i].name %></name>
+        <trainer><%- sessions[i].name %></trainer>
         <date><%- sessions[i].date %></date>
         <time><%- sessions[i].time %></time>
         <name><%- sessions[i].session_name %></name>
