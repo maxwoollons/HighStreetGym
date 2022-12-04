@@ -14,7 +14,7 @@ const app = express();
 const port = 8080;
 let corsOptions = {
     credentials: true,
-    origin: '*'
+    origin: 'https://highstreetgym.xyz'
 
 }
 app.use(cors(corsOptions));
