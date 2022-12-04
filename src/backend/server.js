@@ -13,7 +13,7 @@ import cors from 'cors';
 const app = express();
 const port = 8080;
 let corsOptions = {
-    origin: 'https://api.highstreetgym.xyz/',
+    origin: 'https://highstreetgym.xyz/',
     credentials: true,
     optionsSuccessStatus: 200
 }
