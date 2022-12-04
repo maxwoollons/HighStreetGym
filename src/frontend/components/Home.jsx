@@ -7,7 +7,7 @@ export const Home = () => {
     const [posts, setPosts] = useState([{content: 'Loading...'}])
 
     useEffect (() => {
-        axios.get('/api/posts/few')
+        axios.get('https://api.highstreetgym.xyz/posts/few')
         .then(res => {
             setPosts(res.data)
         })

@@ -9,7 +9,7 @@ export const Login = () => {
 
 
     const handleSubmit = (e) => {
-        axios.post('/api/users/login', {
+        axios.post('https://api.highstreetgym.xyz/users/login', {
             email: email,
             password: password
         })

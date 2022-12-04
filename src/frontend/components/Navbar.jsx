@@ -20,7 +20,7 @@ export const Navbar = () => {
     }, [])
 
     const status = async () => {
-        const res = await axios.get('/api/users/loginstatus')
+        const res = await axios.get('https://api.highstreetgym.xyz/users/loginstatus')
         if (res.data){
             setUser(res.data)
         } else {
@@ -31,7 +31,7 @@ export const Navbar = () => {
 
     const logout = async () => {
         try{
-            await axios.get('/api/users/logout')
+            await axios.get('https://api.highstreetgym.xyz/users/logout')
             setUser(null)
             location.href = '/'
 

@@ -12,7 +12,7 @@ export const Blog = () => {
 
 
     useEffect(() => {
-        axios.get('/api/posts/all')
+        axios.get('https://api.highstreetgym.xyz/posts/all')
             .then(res => {
                 setPosts(res.data)
             })
@@ -37,7 +37,7 @@ export const Blog = () => {
 
 
 
-        axios.post('/api/posts/like', { post_id })
+        axios.post('https://api.highstreetgym.xyz/posts/like', { post_id })
             .then(res => {
                 console.log(res)
             })

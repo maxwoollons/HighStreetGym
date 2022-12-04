@@ -29,7 +29,7 @@ export const TrainerHub = () => {
     function openModal(e) {
         let id = e.target.value
         setSessionID(id)
-        axios.post('/api/sessions/session', { id })
+        axios.post('https://api.highstreetgym.xyz/sessions/session', { id })
             .then(res => {
                 setEditData(res.data)
                 setShowModal(true)
@@ -46,7 +46,7 @@ export const TrainerHub = () => {
 
     //download history
     function downloadHistory(e) {
-    axios.get('/api/data/history', { responseType: 'blob' })
+    axios.get('https://api.highstreetgym.xyz/data/history', { responseType: 'blob' })
         .then(res => {
             console.log(res.data)
             FileDownload(res.data, 'history.xml');
@@ -59,7 +59,7 @@ export const TrainerHub = () => {
     }
 
     function downloadToday(e) {
-        axios.get('/api/data/today', { responseType: 'blob' })
+        axios.get('https://api.highstreetgym.xyz/data/today', { responseType: 'blob' })
             .then(res => {
                 console.log(res.data)
                 FileDownload(res.data, 'today.xml');
@@ -79,7 +79,7 @@ export const TrainerHub = () => {
     function delSession(e){
         const sessionID = e.target.value
         if(window.confirm("Are you sure you want to delete this session? \n(This cannot be undone!)")){
-        axios.post('/api/sessions/delete', { id: sessionID })
+        axios.post('https://api.highstreetgym.xyz/sessions/delete', { id: sessionID })
         .then(res => {
 
 
@@ -103,7 +103,7 @@ export const TrainerHub = () => {
     }, [])
 
     useEffect(() => {
-        axios.get('/api/stats/usernum')
+        axios.get('https://api.highstreetgym.xyz/stats/usernum')
             .then(res => {
                 setTotalUsers(res.data)
             })
@@ -116,7 +116,7 @@ export const TrainerHub = () => {
     useEffect(() => {
 
         if (user) {
-            axios.post('/api/sessions/mysessions', { id: user.id })
+            axios.post('https://api.highstreetgym.xyz/sessions/mysessions', { id: user.id })
                 .then(res => {
                     setSessions(res.data)
                 }
@@ -144,7 +144,7 @@ export const TrainerHub = () => {
 
 
 
-        const res = await axios.get('/api/users/loginstatus')
+        const res = await axios.get('https://api.highstreetgym.xyz/users/loginstatus')
         if (res.data) {
             setUser(res.data)
         } else {
@@ -237,7 +237,7 @@ export const CreateSession = () => {
             let capacity = parseInt(maxSpace)
             let user_id = user.id
             console.log(user_id)
-            const res = await axios.post('/api/sessions/create', { user_id, date, time, name, capacity })
+            const res = await axios.post('https://api.highstreetgym.xyz/sessions/create', { user_id, date, time, name, capacity })
             if (res.data) {
                 alert('Session Created')
             }
@@ -261,7 +261,7 @@ export const CreateSession = () => {
 
 
     useEffect(() => {
-        axios.get('/api/users/loginstatus')
+        axios.get('https://api.highstreetgym.xyz/users/loginstatus')
             .then(res => {
                 if (res.data) {
                     setUser(res.data)
@@ -359,7 +359,7 @@ export const EditModal = (props) => {
         let capacity = parseInt(maxSpace)
         let user_id = props.user.id
         let session_id = props.sessionID
-        axios.post('/api/sessions/update', { session_id, user_id, date, time, name, capacity })
+        axios.post('https://api.highstreetgym.xyz/sessions/update', { session_id, user_id, date, time, name, capacity })
             .then(res => {
                 if (res.data) {
                     alert('Session Updated')
@@ -455,7 +455,7 @@ export const BlogCreate = (props) => {
         } else {
 
        
-        axios.post('/api/posts/create', { user_id, title, content })
+        axios.post('https://api.highstreetgym.xyz/posts/create', { user_id, title, content })
             .then(res => {
                 if (res.data) {
                     alert('Blog Created')

@@ -10,7 +10,7 @@ export const Register = () => {
 
 
     const handleSubmit = (e) => {
-        axios.post('/api/users/register', {
+        axios.post('https://api.highstreetgym.xyz/users/register', {
             name: name,
             email: email,
             password: password

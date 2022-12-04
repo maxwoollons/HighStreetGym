@@ -2,7 +2,7 @@ import React from 'react'
 
 const Trainerpageside = (props) => {
     if (props.selection === '1') {
-        fetch('/api/classes/trainersessions/:id',)
+        fetch('https://api.highstreetgym.xyz/classes/trainersessions/:id',)
 
 
 

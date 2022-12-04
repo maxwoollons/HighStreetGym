@@ -9,7 +9,7 @@ export const Stats = (props) => {
 
     useEffect(() => {
 
-    axios.get('/api/stats/accage')
+    axios.get('https://api.highstreetgym.xyz/stats/accage')
         .then(res => {
             setAccAge(res.data)
         })

@@ -19,7 +19,7 @@ export const App = () => {
     const [user, setUser] = useState([]);
     
     useEffect(() => {
-        axios.get("/api/users/loginstatus")
+        axios.get("https://api.highstreetgym.xyz/users/loginstatus")
         .then((res) => {
             if (res.data) {
             setUser(res.data);

@@ -10,7 +10,7 @@ export const Sessions = () => {
 
     const [sessions, setSessions] = useState([{ content: 'Loading...' }])
     useEffect(() => {
-        axios.get('/api/sessions/')
+        axios.get('https://api.highstreetgym.xyz/sessions/')
             .then(res => {
                 setSessions(res.data)
             }
@@ -25,7 +25,7 @@ export const Sessions = () => {
 
 
     useEffect(() => {
-        axios.get('/api/users/loginstatus')
+        axios.get('https://api.highstreetgym.xyz/users/loginstatus')
             .then(res => {
                 if (res.data) {
                     setUser(res.data)
@@ -43,7 +43,7 @@ export const Sessions = () => {
     function bookUser(e) {
         let id = e.target.value
         console.log(id)
-        axios.post('/api/bookings/book',
+        axios.post('https://api.highstreetgym.xyz/bookings/book',
             {
                 memberid: user.id,
                 sessionid: id

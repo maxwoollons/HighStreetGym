@@ -13,7 +13,7 @@ export const Booked = () => {
     function deleteBooking(e){
         let booking_id = e.target.value
 
-        axios.delete('http://localhost:1234/api/bookings/book',{data:{booking_id}})
+        axios.delete('https://api.highstreetgym.xyz/bookings/book',{data:{booking_id}})
         .then(res => {
             console.log(res.data)
             setRender(!render)
@@ -43,10 +43,10 @@ export const Booked = () => {
     useEffect(() => {
 
         // get the users id
-        axios.get('/api/users/loginstatus')
+        axios.get('https://api.highstreetgym.xyz/users/loginstatus')
         .then(res => {
             console
-            axios.post('/api/sessions/booked', {id: res.data.id})
+            axios.post('https://api.highstreetgym.xyz/sessions/booked', {id: res.data.id})
             .then(res => {
                 setBooked(res.data)
             }

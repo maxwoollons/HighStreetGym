@@ -7,7 +7,7 @@ import './../style.css'
 const Profile = () => {
     const [profileinfo,setProfileinfo] = useState([]);
     React.useEffect(() => {
-        fetch('/api/members/check',
+        fetch('https://api.highstreetgym.xyz/members/check',
             {
                 method: 'GET',
                 headers: {
@@ -29,7 +29,7 @@ const Profile = () => {
 
             }
             )
-            fetch('/api/members/'+localStorage.getItem('userid'),
+            fetch('https://api.highstreetgym.xyz/members/'+localStorage.getItem('userid'),
                 {
                     method: 'GET',
                     headers: {

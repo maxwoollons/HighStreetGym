@@ -19,7 +19,7 @@ const EditBlog = () => {
     let id = user.id
 
     useEffect(() => {
-        axios.post('/api/posts/myposts',{id})
+        axios.post('https://api.highstreetgym.xyz/posts/myposts',{id})
             .then(res => {
                 setPosts(res.data)
             }
@@ -34,7 +34,7 @@ const EditBlog = () => {
 
     function editPost(e){
         let id = e.target.value
-        axios.post('/api/posts/post',{"post_id":id})
+        axios.post('https://api.highstreetgym.xyz/posts/post',{"post_id":id})
             .then(res => {
                 console.log(res.data)
                 setPostId(res.data[0].post_id)
@@ -57,7 +57,7 @@ const EditBlog = () => {
 
         let post_id = e.target.value
         if(window.confirm('Are you sure you want to delete this post?')){
-        axios.delete('/api/posts/delete',{data:{post_id}})
+        axios.delete('https://api.highstreetgym.xyz/posts/delete',{data:{post_id}})
         .then(res => {
             console.log(res.data)
             setRerender(!rerender)
@@ -113,7 +113,7 @@ function Modal(props){
 
     function updatePost(){
 
-        axios.put('/api/posts/update',{title,"content":body,postId})
+        axios.put('https://api.highstreetgym.xyz/posts/update',{title,"content":body,postId})
         .then(res => {
 
             console.log(res.data)

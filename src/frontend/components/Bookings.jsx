@@ -14,7 +14,7 @@ const Bookings = () => {
 
 
         if(window.confirm('Are you sure you want to cancel this booking?')){
-            fetch('/api/updatepos/booking/'+id, {
+            fetch('https://api.highstreetgym.xyz/updatepos/booking'+id, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ const Bookings = () => {
             .then(bookingdata => {
 
             
-                fetch('/api/updatepos/minusone/'+bookingdata[0][0].sessionid, {
+                fetch('https://api.highstreetgym.xyz/updatepos/minusone/'+bookingdata[0][0].sessionid, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ const Bookings = () => {
                     console.log(err)
                 }
                 )
-                fetch(`/api/bookings/${id}`, {
+                fetch(`https://api.highstreetgym.xyz/bookings/${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ const Bookings = () => {
                     alert('Booking Cancelled')
                     console.log("The id is "+ data.sessionid)
 
-                fetch('/api/bookings/'+localStorage.getItem('userid'),
+                fetch('https://api.highstreetgym.xyz/bookings/'+localStorage.getItem('userid'),
                 {
                     method: 'GET',
                     headers: {
@@ -65,7 +65,7 @@ const Bookings = () => {
 
                     }
                     else{
-                        fetch('/api/bookings/'+localStorage.getItem('userid'),
+                        fetch('https://api.highstreetgym.xyz/bookings/'+localStorage.getItem('userid'),
                         {
                             method: 'GET',
                             headers: {
@@ -98,7 +98,7 @@ const Bookings = () => {
         
 
 
-        fetch('/api/members/check',
+        fetch('https://api.highstreetgym.xyz/members/check',
             {
                 method: 'GET',
                 headers: {
@@ -111,7 +111,7 @@ const Bookings = () => {
                 console.log(data)
                 if (data.userid){
                     console.log('logged in')
-                    fetch('/api/bookings/'+data.userid,
+                    fetch('https://api.highstreetgym.xyz/bookings/'+data.userid,
                     {
                         method: 'GET',
                         headers: {

@@ -40,7 +40,7 @@ const Gymclasses = () => {
     //fetch data form database and store it in an array
     const [classes, setClasses] = React.useState([])
     React.useEffect(() => {
-        fetch('http://localhost:1234/api/classes/today')
+        fetch('https://api.highstreetgym.xyz/classes/today')
         .then(res => res.json())
         .then(data => setClasses(data))
     }
