@@ -13,6 +13,8 @@ import cors from 'cors';
 const app = express();
 const port = 8080;
 let corsOptions = {
+    credentials: true,
+    origin: '*'
 
 }
 app.use(cors(corsOptions));
