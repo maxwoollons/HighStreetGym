@@ -60,7 +60,9 @@ userController.post('/login', async (req, res) => {
         if (validPassword) {
             console.log(user[0][0]);
             const token = jwt.sign({id: user[0][0].user_id,role: user[0][0].role}, key,{expiresIn: '1h'});
-            res.cookie("token", token);
+            res.cookie("token", token,{
+             httpOnly: true,
+            });
             res.json({message: "logged in", token: token}).status(200);
         }
         else {
