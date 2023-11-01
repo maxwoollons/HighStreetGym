@@ -1,0 +1,34 @@
+<!-- XML DEFINITION -->
+
+<!DOCTYPE document [
+<!ELEMENT document (title,session*)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT session (id,date,time,name,maxspace,space)*>
+<!ELEMENT id (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT time (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT maxspace (#PCDATA)>
+<!ELEMENT space (#PCDATA)>
+]>
+
+
+
+
+
+
+<document>
+    <title>Classes For Today</title>
+<% for (var i = 0; i < sessions.length; i++) { %>
+    <session>
+        <id><%- sessions[i].session_id %></id>
+        <date><%- sessions[i].date %></date>
+        <time><%- sessions[i].time %></time>
+        <name><%- sessions[i].session_name %></name>
+        <maxspace><%- sessions[i].max_space %></maxspace>
+        <space><%- sessions[i].booked %>/<%- sessions[i].max_space %></space>
+    </session>
+
+<% } %>
+
+</document>
